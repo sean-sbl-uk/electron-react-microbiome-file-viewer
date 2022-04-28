@@ -31,9 +31,7 @@ const Main = () => {
   const analyseButton = spikesSet ? (
     <Button variant="outline-secondary">Analyse</Button>
   ) : (
-    <Button variant="outline-secondary" disabled>
-      Analyse
-    </Button>
+    <Button variant="outline-secondary" disabled></Button>
   );
 
   const filtersButton =
