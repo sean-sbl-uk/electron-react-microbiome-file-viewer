@@ -32,14 +32,14 @@ const Main = () => {
     </Button>
   );
 
-  const filtersButton =
+  const spikesButton =
     files.length === 0 ? (
       <Button variant="secondary" onClick={handleOpenModal} disabled>
-        Set Filters
+        Set Spikes
       </Button>
     ) : (
       <Button variant="secondary" onClick={handleOpenModal}>
-        Set Filters
+        Set Spikes
       </Button>
     );
 
@@ -51,7 +51,7 @@ const Main = () => {
             <Dropzone setFiles={setFiles} />
 
             <Stack gap={2} className="col-md-5 mx-auto my-auto a">
-              {filtersButton}
+              {spikesButton}
               {analyseButton}
             </Stack>
 
