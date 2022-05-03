@@ -117,7 +117,12 @@ const Modal = ({ show, handleCloseModal, setSpikeData, files }) => {
 
       return (
         <div key={index} className="main-color">
-          <Form.Label className="col-form-label-lg">{file.name}</Form.Label>
+          <Form.Label
+            data-testid={`label-${file.name}`}
+            className="col-form-label-lg"
+          >
+            {file.name}
+          </Form.Label>
 
           {inputFields(file.name)}
         </div>
@@ -128,7 +133,12 @@ const Modal = ({ show, handleCloseModal, setSpikeData, files }) => {
   );
 
   return (
-    <BootstrapModal centered show={show} onHide={handleCloseModal}>
+    <BootstrapModal
+      data-testid="modal"
+      centered
+      show={show}
+      onHide={handleCloseModal}
+    >
       <BootstrapModal.Header closeButton>
         <BootstrapModal.Title className="main-color">
           Spike Data
@@ -149,6 +159,7 @@ const Modal = ({ show, handleCloseModal, setSpikeData, files }) => {
             label="Multiple Spikes"
             onChange={spikeSwitchOnChange}
             className="mb-3"
+            data-testid="spike-switch"
           ></Form.Check>
           {formInputs}
         </BootstrapModal.Body>

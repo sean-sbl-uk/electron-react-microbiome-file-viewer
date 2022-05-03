@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Container, Stack } from "react-bootstrap";
-import Dropzone from "../../components/dropzone/index";
-import Modal from "../../components/modal";
+import Dropzone from "../../components/dropzone/Dropzone";
+import Modal from "../../components/modal/Modal";
 
 const Main = () => {
   const [files, setFiles] = useState([]);
@@ -16,11 +16,7 @@ const Main = () => {
     }
   }, [spikeData]);
 
-  //   console.log(files);
-  //   console.log(spikeData);
-
   const handleOpenModal = () => {
-    // show modal if no files selected
     setShowModal(true);
   };
 
