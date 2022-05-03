@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Container, Stack } from "react-bootstrap";
 import Dropzone from "../../components/dropzone/index";
 import Modal from "../../components/modal";
@@ -8,8 +8,16 @@ const Main = () => {
   const [showModal, setShowModal] = useState(false);
 
   const [spikesSet, setSpikesSet] = useState(false);
+  const [spikeData, setSpikeData] = useState({});
+
+  useEffect(() => {
+    if (Object.keys(spikeData).length !== 0) {
+      setSpikesSet(true);
+    }
+  }, [spikeData]);
 
   //   console.log(files);
+  //   console.log(spikeData);
 
   const handleOpenModal = () => {
     // show modal if no files selected
@@ -20,18 +28,12 @@ const Main = () => {
     setShowModal(false);
   };
 
-  const formSubmit = (e) => {
-    e.preventDefault();
-
-    console.log("inside formSubmit Settings");
-    console.log(e.target);
-    handleCloseModal();
-  };
-
   const analyseButton = spikesSet ? (
     <Button variant="outline-secondary">Analyse</Button>
   ) : (
-    <Button variant="outline-secondary" disabled></Button>
+    <Button variant="outline-secondary" disabled>
+      Analyse
+    </Button>
   );
 
   const filtersButton =
@@ -60,8 +62,8 @@ const Main = () => {
             <Modal
               show={showModal}
               handleCloseModal={handleCloseModal}
-              formSubmit={formSubmit}
               files={files}
+              setSpikeData={setSpikeData}
             />
           </div>
         </Container>
