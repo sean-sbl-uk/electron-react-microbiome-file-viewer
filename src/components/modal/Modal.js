@@ -1,34 +1,44 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Modal as BootstrapModal,
   Button,
   Form,
   Row,
-  InputGroup,
   Col,
 } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { resetSpikeData, setSpikeData } from "../../redux/spikes";
 
-const Modal = ({ show, handleCloseModal, setSpikeData, files }) => {
+const Modal = ({ show, handleCloseModal, files }) => {
   const [multipleSpikes, setMultipleSpikes] = useState(false);
   const [formData, setFormData] = useState({});
   const [validated, setValidated] = useState(false);
+
+  // const { data } = useSelector((state) => state.spikeData);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     const form = e.currentTarget;
     e.preventDefault();
     e.stopPropagation();
-    if (form.checkValidity()) {
-      console.log("valid form");
-      setSpikeData(formData);
 
-      console.log(formData);
+    if (form.checkValidity()) {
+      //Send to redux store
+      dispatch(setSpikeData(formData));
+      // console.log(data);
+
       handleCloseModal();
+      setMultipleSpikes(false);
     } else {
       console.log("invalid form");
     }
     setValidated(true);
   };
 
+  const handleClose = () => {
+    handleCloseModal();
+    setMultipleSpikes(false);
+  };
   const onFormChange = (e, updatedAt) => {
     const id = e.target.id;
     const fileName = id.split("/")[1];
@@ -40,8 +50,6 @@ const Modal = ({ show, handleCloseModal, setSpikeData, files }) => {
         [e.target.name]: e.target.value,
       },
     });
-
-    // console.log(formData);
   };
 
   const spikeSwitchOnChange = () => {
@@ -151,8 +159,6 @@ const Modal = ({ show, handleCloseModal, setSpikeData, files }) => {
         validated={validated}
       >
         <BootstrapModal.Body>
-          {/* Form */}
-
           <Form.Check
             type="switch"
             id="spike-switch"
@@ -164,7 +170,7 @@ const Modal = ({ show, handleCloseModal, setSpikeData, files }) => {
           {formInputs}
         </BootstrapModal.Body>
         <BootstrapModal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
           <Button type="submit" variant="outline-secondary">

@@ -3,18 +3,34 @@ import Modal from "./Modal";
 import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/react";
 
+import { Provider } from "react-redux";
+import configureStore from "redux-mock-store";
+
 describe("Modal", () => {
   const files = [{ name: "dummyFile1" }, { name: "dummyFile2" }];
+  //Needs updating
+  const initialState = files;
+  const mockStore = configureStore();
+  let store, wrapper;
 
   it("should render", () => {
-    const { getByTestId } = render(<Modal show={true} />);
+    store = mockStore(initialState);
+    const { getByTestId } = render(
+      <Provider store={store}>
+        {" "}
+        <Modal show={true} />
+      </Provider>
+    );
 
     expect(getByTestId("modal")).toBeInTheDocument();
   });
 
   it("should display file name over input fields", () => {
+    store = mockStore(initialState);
     const { getByTestId, getByText } = render(
-      <Modal show={true} files={files} />
+      <Provider store={store}>
+        <Modal show={true} files={files} />
+      </Provider>
     );
 
     const spikeSwitch = getByTestId("spike-switch");
@@ -25,7 +41,12 @@ describe("Modal", () => {
   });
 
   it("should display validation warnings input data missing", () => {
-    const { getByTestId, getByText } = render(<Modal show={true} />);
+    store = mockStore(initialState);
+    const { getByTestId, getByText } = render(
+      <Provider store={store}>
+        <Modal show={true} files={files} />
+      </Provider>
+    );
 
     const submit = getByText("Save Changes");
     fireEvent.click(submit);

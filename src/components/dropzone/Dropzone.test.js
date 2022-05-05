@@ -3,9 +3,21 @@ import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/react";
 import Dropzone from "./Dropzone";
 
+import { Provider } from "react-redux";
+import configureStore from "redux-mock-store";
+
 describe("Dropzone", () => {
+  const initialState = {};
+  const mockStore = configureStore();
+  let store, wrapper;
+
   it("should render", () => {
-    const { getByTestId } = render(<Dropzone />);
+    store = mockStore(initialState);
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <Dropzone />
+      </Provider>
+    );
 
     expect(getByTestId("dropzone")).toBeInTheDocument();
   });
