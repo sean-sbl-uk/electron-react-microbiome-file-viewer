@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { Fragment } from "react";
-import { MemoryRouter as Router, Routes, Route, Link } from "react-router-dom";
+import React from "react";
+import { MemoryRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./pages/landing/index";
 import Main from "./pages/main/index";
 

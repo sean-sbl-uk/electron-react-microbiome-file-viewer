@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Modal as BootstrapModal,
   Button,
@@ -6,15 +6,14 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { resetSpikeData, setSpikeData } from "../../redux/spikes";
+import { useDispatch } from "react-redux";
+import { setSpikeData } from "../../redux/spikes";
 
 const Modal = ({ show, handleCloseModal, files }) => {
   const [multipleSpikes, setMultipleSpikes] = useState(false);
   const [formData, setFormData] = useState({});
   const [validated, setValidated] = useState(false);
 
-  // const { data } = useSelector((state) => state.spikeData);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -25,7 +24,6 @@ const Modal = ({ show, handleCloseModal, files }) => {
     if (form.checkValidity()) {
       //Send to redux store
       dispatch(setSpikeData(formData));
-      // console.log(data);
 
       handleCloseModal();
       setMultipleSpikes(false);

@@ -1,6 +1,4 @@
-import React, { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import { Button, Stack } from "react-bootstrap";
+import React from "react";
 
 const Dropzone = ({ setFiles, children }) => {
   const onChangeHandler = (e) => {
