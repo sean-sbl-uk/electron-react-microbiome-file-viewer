@@ -6,6 +6,7 @@ import Landing from "./pages/landing/index";
 import Main from "./pages/main/index";
 
 export default function App() {
+  console.log("inside App line 9");
   return (
     <Router>
       <Routes>
