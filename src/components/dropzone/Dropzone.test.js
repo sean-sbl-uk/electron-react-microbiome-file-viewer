@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { fireEvent, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import Dropzone from "./Dropzone";
 
 import { Provider } from "react-redux";
