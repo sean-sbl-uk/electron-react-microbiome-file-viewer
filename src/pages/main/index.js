@@ -1,18 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Container, Stack } from "react-bootstrap";
-import Dropzone from "../../components/dropzone/index";
-import Modal from "../../components/modal";
+import Dropzone from "../../components/dropzone/Dropzone";
+import Modal from "../../components/modal/Modal";
+import { useSelector } from "react-redux";
 
 const Main = () => {
   const [files, setFiles] = useState([]);
-  const [showModal, setShowModal] = useState(false);
 
+  const [showModal, setShowModal] = useState(false);
   const [spikesSet, setSpikesSet] = useState(false);
 
-  //   console.log(files);
+  const spikeData = useSelector((state) => state.spikeData.data);
+
+  useEffect(() => {
+    if (Object.keys(spikeData).length !== 0) {
+      setSpikesSet(true);
+    }
+  }, [spikeData]);
 
   const handleOpenModal = () => {
-    // show modal if no files selected
     setShowModal(true);
   };
 
@@ -20,28 +26,22 @@ const Main = () => {
     setShowModal(false);
   };
 
-  const formSubmit = (e) => {
-    e.preventDefault();
-
-    console.log("inside formSubmit Settings");
-    console.log(e.target);
-    handleCloseModal();
-  };
-
   const analyseButton = spikesSet ? (
     <Button variant="outline-secondary">Analyse</Button>
   ) : (
-    <Button variant="outline-secondary" disabled></Button>
+    <Button variant="outline-secondary" disabled>
+      Analyse
+    </Button>
   );
 
-  const filtersButton =
+  const spikesButton =
     files.length === 0 ? (
       <Button variant="secondary" onClick={handleOpenModal} disabled>
-        Set Filters
+        Set Spikes
       </Button>
     ) : (
       <Button variant="secondary" onClick={handleOpenModal}>
-        Set Filters
+        Set Spikes
       </Button>
     );
 
@@ -50,17 +50,15 @@ const Main = () => {
       <div className="light-overlay">
         <Container className="">
           <div className="text-center row ">
-            <Dropzone setFiles={setFiles} />
-
-            <Stack gap={2} className="col-md-5 mx-auto my-auto a">
-              {filtersButton}
-              {analyseButton}
-            </Stack>
-
+            <Dropzone setFiles={setFiles}>
+              <Stack gap={2}>
+                {spikesButton}
+                {analyseButton}
+              </Stack>
+            </Dropzone>
             <Modal
               show={showModal}
               handleCloseModal={handleCloseModal}
-              formSubmit={formSubmit}
               files={files}
             />
           </div>
