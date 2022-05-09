@@ -1,7 +1,14 @@
 import React from "react";
 
-const Dropzone = ({ setFiles, children }) => {
-  const onChangeHandler = (e) => {
+type Props = {
+  children: React.ReactNode;
+  setFiles: (target: any) => void;
+};
+
+const Dropzone: React.FC<Props> = (props) => {
+  const { setFiles, children } = props;
+
+  const onChangeHandler = (e: any) => {
     setFiles(e.target.files);
   };
   return (

@@ -1,3 +1,4 @@
+// import { type } from "os";
 import React, { useState } from "react";
 import {
   Modal as BootstrapModal,
@@ -9,14 +10,36 @@ import {
 import { useDispatch } from "react-redux";
 import { setSpikeData } from "../../redux/spikes";
 
-const Modal = ({ show, handleCloseModal, files }) => {
-  const [multipleSpikes, setMultipleSpikes] = useState(false);
-  const [formData, setFormData] = useState({});
+type file = {
+  name: string
+}
+
+type Props = {
+  show: boolean;
+  files: file[];
+  handleCloseModal: () => void;
+}
+
+interface Data {
+  fileName: string
+  taxId: String;
+  cellsPerMl: number;
+  genomeSize: number;
+}
+
+
+
+const Modal: React.FC<Props> = (props) => {
+
+  const { show, handleCloseModal, files } = props;
+
+  const [multipleSpikes, setMultipleSpikes] = useState<boolean>(false);
+  const [formData, setFormData] = useState<Data[]>([]);
   const [validated, setValidated] = useState(false);
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     const form = e.currentTarget;
     e.preventDefault();
     e.stopPropagation();
@@ -37,24 +60,59 @@ const Modal = ({ show, handleCloseModal, files }) => {
     handleCloseModal();
     setMultipleSpikes(false);
   };
-  const onFormChange = (e, updatedAt) => {
-    const id = e.target.id;
-    const fileName = id.split("/")[1];
+  const onFormChange = (e: any) => {
+    const id: string = e.target.id;
+    const fileName: string = id.split("/")[1];
+    const key: "" = e.target.name
 
-    setFormData({
-      ...formData,
-      [fileName]: {
-        ...formData[fileName],
-        [e.target.name]: e.target.value,
-      },
-    });
-  };
+  //   setFormData({
+  //     ...formData,
+  //     [fileName]: {
+  //       // ...formData[fileName],
+       
+  //       [e.target.name]: e.target.value,
+  //     },
+  //   });
+  // };
+  
+  let index = formData.findIndex(obj => obj.fileName === fileName);
+
+  //If index is not in formData set index to end of array
+  if(index < 0) {
+    index = formData.length
+  }
+
+  let tempState = [...formData]
+
+  let tempElement = {...tempState[index]}
+
+  switch (key as any) {
+    case 'taxId':
+      tempElement.fileName = fileName;
+      tempElement.taxId = e.target.value;
+      break;
+    case 'cellsPerMl':
+      tempElement.fileName = fileName;
+      tempElement.cellsPerMl = e.target.value;
+      break;
+    case 'genomeSize':
+      tempElement.fileName = fileName;
+      tempElement.genomeSize = e.target.value;
+      break;
+  }
+
+  tempState[index] = tempElement
+
+  console.log(tempState)
+
+  setFormData(tempState)
+  }
 
   const spikeSwitchOnChange = () => {
     setMultipleSpikes(!multipleSpikes);
   };
 
-  const inputFields = (fileName) => {
+  const inputFields = (fileName: string) => {
     return (
       <Row className="mb-3">
         {/*<Form.Group>

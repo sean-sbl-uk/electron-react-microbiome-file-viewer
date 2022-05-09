@@ -21,16 +21,3 @@ export const { setSpikeData, resetSpikeData } = spikeDataSlice.actions;
 
 export default spikeDataSlice.reducer;
 
-// export const setSpikes =
-//   ({ data }) =>
-//   async (dispatch) => {
-//     try {
-//       dispatch(setSpikeData({ data }));
-//     } catch (error) {
-//       return console.error(error.message);
-//     }
-//   };
-
-// export const resetSpikes = () => async (dispatch) => {
-//   dispatch(resetSpikeData());
-// };
