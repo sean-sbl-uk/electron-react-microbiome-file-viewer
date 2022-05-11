@@ -11,10 +11,10 @@ const csvParser = window.require('csv-parser')
 //     //readFile()
 // }
 
-export const readCSVFile = (fileObject: FileWithPath): Record[] => {
+export const readCSVFile = (fileObject: FileWithPath): FileRecords => {
 
     const filePath = fileObject.path;
-    const results: any[] = [];
+    const records: Record[] = [];
 
     console.log('readCSVFile: '+ filePath)
 
@@ -27,25 +27,26 @@ export const readCSVFile = (fileObject: FileWithPath): Record[] => {
 
         delete row.id;
         let record: Record = row;
-        console.log(record)
         
-        results.push(row)
+        records.push(record)
     })
     .on('end',  () => {
     })
 
-    return results
+    const result: FileRecords = {
+        fileName: fileObject.name,
+        records: records
+    }
+
+    return result
 
 }
 
 //for each file
-export const processRawData = (spikeData : Object, records: Object[]) => {
+// export const processRawData = (spikeData : Object, records: Object[]) => {
 
-    let spikeDNAIn = 0;
-    let spikeDNAOut = 0;
+//     let spikeDNAIn = 0;
+//     let spikeDNAOut = 0;
 
-    //count up all records for given spike 
-
-    
-     
-}
+    //count up all records for given spike  
+// }

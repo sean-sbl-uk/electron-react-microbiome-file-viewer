@@ -19,7 +19,7 @@ export const recordsSlice = createSlice({
     reducers: {
         setRecords: (state, action: PayloadAction<FileRecords>) => {
             // state.records = {...state.records, action.payload}
-            const {fileName, records} = action.payload
+            const {fileName} = action.payload
             if(!state.data.findIndex(fileRecords => fileRecords.fileName === fileName ? true : false)){
                 state.data.push(action.payload)
             }
