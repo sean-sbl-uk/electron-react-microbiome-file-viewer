@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 //Slice
 export const spikeDataSlice = createSlice({
@@ -7,7 +7,7 @@ export const spikeDataSlice = createSlice({
     data: {},
   },
   reducers: {
-    setSpikeData: (state, action) => {
+    setSpikeData: (state, action: PayloadAction<any>) => {
       state.data = action.payload;
     },
     resetSpikeData: (state) => {

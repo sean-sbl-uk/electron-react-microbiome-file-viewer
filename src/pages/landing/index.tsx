@@ -4,7 +4,6 @@ import { Button } from "react-bootstrap";
 
 const Landing = () => {
   return (
-    // <h1>Landing</h1>
     <section className="background">
       <div className="dark-overlay">
         <div className="landing-inner">

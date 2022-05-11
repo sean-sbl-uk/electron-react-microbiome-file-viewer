@@ -9,8 +9,8 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<Landing />} />
-        <Route exact path="/main" element={<Main />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/main" element={<Main />} />
       </Routes>
     </Router>
   );

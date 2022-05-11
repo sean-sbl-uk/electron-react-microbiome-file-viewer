@@ -3,6 +3,11 @@ import { Button, Container, Stack } from "react-bootstrap";
 import Dropzone from "../../components/dropzone/Dropzone";
 import Modal from "../../components/modal/Modal";
 import { useSelector } from "react-redux";
+import {RootState} from '../../redux/store'
+import { readCSVFile } from "../../utils";
+import { Record, FileRecords } from "../../utils/types";
+
+
 
 const Main = () => {
   const [files, setFiles] = useState([]);
@@ -10,7 +15,9 @@ const Main = () => {
   const [showModal, setShowModal] = useState(false);
   const [spikesSet, setSpikesSet] = useState(false);
 
-  const spikeData = useSelector((state) => state.spikeData.data);
+  const spikeData = useSelector((state: RootState) => state.spikeData.data);
+
+  console.log(files)
 
   useEffect(() => {
     if (Object.keys(spikeData).length !== 0) {
@@ -26,10 +33,23 @@ const Main = () => {
     setShowModal(false);
   };
 
+  const analyseOnClick = () => {
+
+    //Process each file
+    Array.from(files).forEach(fileObject => {
+      const records = readCSVFile(fileObject)
+      
+      //send array of records to store with file name
+      
+      // console.log(records)
+    })
+
+  }
+
   const analyseButton = spikesSet ? (
-    <Button variant="outline-secondary">Analyse</Button>
+    <Button variant="outline-secondary" onClick={analyseOnClick}>Analyse</Button>
   ) : (
-    <Button variant="outline-secondary" disabled>
+    <Button variant="outline-secondary" onClick={analyseOnClick} disabled>
       Analyse
     </Button>
   );
